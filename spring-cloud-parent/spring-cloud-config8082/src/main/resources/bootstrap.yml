@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: SpringCloudConfig8082
+  cloud:
+    config:
+      server:
+        git:
+          #配置文件所在仓库
+          uri: https://github.com/lizhixin-git-hub/spring-config-repository.git
+          #spring cloud config启动后会去application.yml中配置好的git仓库中读取配配置到本地中,默认是读取到临时目录下,例如: /tmp/XXXXXXX等.
+          #如果读取后的配置存放在临时目录下,首先是不易去查看,其次在linux下会定时清除临时配置,所以使用默认的临时目录不是一个好方法.
+          #而spring cloud给我们提供了指定读取配置文件的存放路径方法:https://blog.csdn.net/weixin_42214548/article/details/106917763
+          #basedir: target/config
+          #配置文件所在根目录
+          search-paths: config
+          #配置文件分支
+          default-label: master
+          #登录用户名
+          username: lizhixin-git-hub
+          #登录密码
+          password: lzx1922026241
+
+eureka:
+  instance:
+    hostname: ${spring.cloud.client.ip-address}
+    instance-id: ${eureka.instance.hostname}:${spring.application.name}:${server.port}
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://192.168.1.52:8081/eureka
